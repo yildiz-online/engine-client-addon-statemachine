@@ -33,7 +33,7 @@ public class StateFlowBuilder {
 
     private StateId currentState;
 
-    public StateFlowBuilder(StateFlowEvent event) {
+    StateFlowBuilder(StateFlowEvent event) {
         this.event = event;
     }
 

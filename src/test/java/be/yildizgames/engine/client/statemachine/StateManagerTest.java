@@ -39,7 +39,7 @@ class StateManagerTest {
         @Test
         void happyFlow() {
             StateManager<DummyState> manager = StateManager.withInitialState(new DummyState(StateId.valueOf(1)));
-            assertEquals(StateId.valueOf(1), manager.getCurrentState().getGameStateId());
+            assertEquals(StateId.valueOf(1), manager.getCurrentState().getStateId());
         }
 
     }
@@ -51,7 +51,7 @@ class StateManagerTest {
         void heppyFlow() {
             StateManager<DummyState> manager = StateManager.withInitialState(new DummyState(StateId.valueOf(1)));
             manager.registerGameState(new DummyState(StateId.valueOf(2)));
-            assertEquals(StateId.valueOf(1), manager.getCurrentState().getGameStateId());
+            assertEquals(StateId.valueOf(1), manager.getCurrentState().getStateId());
         }
 
         @Test
@@ -59,7 +59,7 @@ class StateManagerTest {
             StateId value = StateId.valueOf(1);
             StateManager<DummyState> manager = StateManager.withInitialState(new DummyState(value));
             manager.registerGameState(new DummyState(value));
-            assertEquals(value, manager.getCurrentState().getGameStateId());
+            assertEquals(value, manager.getCurrentState().getStateId());
         }
 
         @Test

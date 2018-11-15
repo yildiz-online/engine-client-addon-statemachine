@@ -68,9 +68,9 @@ public class StateManager<T extends State> {
      */
     public void registerGameState(final T state) {
         ImplementationException.throwForNull(state);
-        if(!this.states.containsKey(state.getGameStateId())) {
-            this.states.put(state.getGameStateId(), state);
-            this.flows.put(state.getGameStateId(), new ArrayList<>());
+        if(!this.states.containsKey(state.getStateId())) {
+            this.states.put(state.getStateId(), state);
+            this.flows.put(state.getStateId(), new ArrayList<>());
             state.deactivate();
         }
     }
@@ -81,10 +81,10 @@ public class StateManager<T extends State> {
      */
     private final void registerInitialGameState(final T state) {
         ImplementationException.throwForNull(state);
-        this.states.put(state.getGameStateId(), state);
-        this.flows.put(state.getGameStateId(), new ArrayList<>());
+        this.states.put(state.getStateId(), state);
+        this.flows.put(state.getStateId(), new ArrayList<>());
         state.activate();
-        this.currentState = state.getGameStateId();
+        this.currentState = state.getStateId();
     }
 
     public void processEvent(final StateFlowEvent event) {
