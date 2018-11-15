@@ -24,25 +24,18 @@
 
 package be.yildizgames.engine.client.statemachine;
 
+import be.yildizgames.common.util.ValueObject;
+
 /**
  * @author Grégory Van den Borre
  */
-public class GameStateFlowBuilder {
+public class StateFlowEvent extends ValueObject {
 
-    private final GameStateFlowEvent event;
-
-    private GameStateId state;
-
-    public GameStateFlowBuilder(GameStateFlowEvent event) {
-        this.event = event;
+    private StateFlowEvent(int value) {
+        super(value);
     }
 
-    public GameStateFlowBuilder goFrom(GameStateId state) {
-        this.state = state;
-        return this;
-    }
-
-    public GameStateFlow to(GameStateId nextState) {
-        return new GameStateFlow(this.state, nextState, this.event);
+    public static StateFlowEvent valueOf(int value) {
+        return new StateFlowEvent(value);
     }
 }

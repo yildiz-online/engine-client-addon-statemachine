@@ -24,5 +24,6 @@
 
 module be.yildizgames.engine.client.addon.statemachine {
     requires be.yildizgames.common.util;
+    requires be.yildizgames.common.exception;
 
 }

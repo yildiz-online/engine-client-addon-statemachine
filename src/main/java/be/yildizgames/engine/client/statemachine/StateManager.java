@@ -25,6 +25,8 @@
 
 package be.yildizgames.engine.client.statemachine;
 
+import be.yildizgames.common.exception.implementation.ImplementationException;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -34,45 +36,58 @@ import java.util.Optional;
 /**
  * @author Grégory Van den Borre
  */
-public class GameStateManager <T extends GameState> {
+public class StateManager<T extends State> {
 
     /**
      * The current activated game state, all other one are deactivated.
      */
-    private GameStateId currentState = GameStateId.NONE;
+    private StateId currentState = StateId.NONE;
 
     /**
      * The list of all registered game states.
      */
-    private final Map<GameStateId, T> states = new HashMap<>();
+    private final Map<StateId, T> states = new HashMap<>();
 
     /**
      * The list of all transitions between game states.
      */
-    private final Map<GameStateId, List<GameStateFlow>> flows = new HashMap<>();
+    private final Map<StateId, List<StateFlow>> flows = new HashMap<>();
+
+    private StateManager(T initialState) {
+        super();
+        this.registerInitialGameState(initialState);
+    }
+
+    public static <T extends State> StateManager<T> withInitialState(T initialState) {
+        return new StateManager<>(initialState);
+    }
 
     /**
      * Register a new game state.
      * @param state State to register.
      */
-    public final void registerGameState(final T state) {
-        this.states.put(state.getGameStateId(), state);
-        this.flows.put(state.getGameStateId(), new ArrayList<>());
-        state.deactivate();
+    public void registerGameState(final T state) {
+        ImplementationException.throwForNull(state);
+        if(!this.states.containsKey(state.getGameStateId())) {
+            this.states.put(state.getGameStateId(), state);
+            this.flows.put(state.getGameStateId(), new ArrayList<>());
+            state.deactivate();
+        }
     }
 
     /**
      * Register the initial game state, it will be activated directly.
      * @param state Initial state to register.
      */
-    public final void registerInitialGameState(final T state) {
+    private final void registerInitialGameState(final T state) {
+        ImplementationException.throwForNull(state);
         this.states.put(state.getGameStateId(), state);
         this.flows.put(state.getGameStateId(), new ArrayList<>());
         state.activate();
         this.currentState = state.getGameStateId();
     }
 
-    public void processEvent(final GameStateFlowEvent event) {
+    public void processEvent(final StateFlowEvent event) {
         this.flows.get(this.currentState)
                 .stream()
                 .filter(f -> f.isForEvent(event))
@@ -81,8 +96,9 @@ public class GameStateManager <T extends GameState> {
 
     }
 
-    public final void registerGameStateFlow(final GameStateFlow flow) {
-        if(!flow.state.equals(GameStateId.ANY)) {
+    public final void registerGameStateFlow(final StateFlow flow) {
+        ImplementationException.throwForNull(flow);
+        if(!flow.state.equals(StateId.ANY)) {
             this.flows.get(flow.state).add(flow);
         }
     }
@@ -92,11 +108,11 @@ public class GameStateManager <T extends GameState> {
     }
 
 
-    private void setCurrentStateFromFlow(final GameStateFlow f) {
+    private void setCurrentStateFromFlow(final StateFlow f) {
         this.setCurrentState(f.nextState);
     }
 
-    private void setCurrentState(final GameStateId id) {
+    private void setCurrentState(final StateId id) {
         Optional.ofNullable(currentState).ifPresent(c -> states.get(this.currentState).deactivate());
         if(!this.states.containsKey(id)) {
             throw new IllegalArgumentException("No state associated with " + id.value);
@@ -105,8 +121,8 @@ public class GameStateManager <T extends GameState> {
         this.currentState = id;
     }
 
-    private void getFromAny(final GameStateFlowEvent event) {
-        this.flows.get(GameStateId.ANY)
+    private void getFromAny(final StateFlowEvent event) {
+        this.flows.get(StateId.ANY)
                 .stream()
                 .filter(f -> f.isForEvent(event))
                 .findFirst()

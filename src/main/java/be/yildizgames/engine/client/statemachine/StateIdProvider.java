@@ -28,9 +28,7 @@ package be.yildizgames.engine.client.statemachine;
 /**
  * @author Grégory Van den Borre
  */
-public interface GameState extends GameStateIdProvider {
+public interface StateIdProvider {
 
-    void activate();
-
-    void deactivate();
+    StateId getStateId();
 }

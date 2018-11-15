@@ -25,10 +25,27 @@
 
 package be.yildizgames.engine.client.statemachine;
 
+import be.yildizgames.common.util.ValueObject;
+
 /**
  * @author Grégory Van den Borre
  */
-public interface GameStateIdProvider {
+public class StateId extends ValueObject {
 
-    GameStateId getGameStateId();
+    /**
+     * Empty state id, used as default when no state is currently registered and active.
+     */
+    static final StateId NONE = StateId.valueOf(-1);
+
+    public static final StateId CLOSED = StateId.valueOf(-2);
+
+    public static final StateId ANY = StateId.valueOf(0);
+
+    private StateId(final int value) {
+        super(value);
+    }
+
+    public static StateId valueOf(int value) {
+        return new StateId(value);
+    }
 }

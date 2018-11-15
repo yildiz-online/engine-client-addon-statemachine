@@ -25,37 +25,24 @@
 package be.yildizgames.engine.client.statemachine;
 
 /**
- * To move from one state to another when an event occurs.
  * @author Grégory Van den Borre
  */
-public class GameStateFlow {
+public class StateFlowBuilder {
 
-    /**
-     * Initial state.
-     */
-    final GameStateId state;
+    private final StateFlowEvent event;
 
-    /**
-     * Final state.
-     */
-    final GameStateId nextState;
+    private StateId currentState;
 
-    /**
-     * Event to move from initial to final.
-     */
-    final GameStateFlowEvent event;
-
-    GameStateFlow(GameStateId state, GameStateId nextState, GameStateFlowEvent event) {
-        this.state = state;
-        this.nextState = nextState;
+    public StateFlowBuilder(StateFlowEvent event) {
         this.event = event;
     }
 
-    public static GameStateFlowBuilder on(GameStateFlowEvent event) {
-        return new GameStateFlowBuilder(event);
+    public StateFlowBuilder goFrom(StateId state) {
+        this.currentState = state;
+        return this;
     }
 
-    boolean isForEvent(GameStateFlowEvent e) {
-        return this.event.equals(e);
+    public StateFlow to(StateId nextState) {
+        return new StateFlow(this.currentState, nextState, this.event);
     }
 }

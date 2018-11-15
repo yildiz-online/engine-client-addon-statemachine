@@ -24,18 +24,38 @@
 
 package be.yildizgames.engine.client.statemachine;
 
-import be.yildizgames.common.util.ValueObject;
-
 /**
+ * To move from one state to another when an event occurs.
  * @author Grégory Van den Borre
  */
-public class GameStateFlowEvent extends ValueObject {
+public class StateFlow {
 
-    private GameStateFlowEvent(int value) {
-        super(value);
+    /**
+     * Initial state.
+     */
+    final StateId state;
+
+    /**
+     * Final state.
+     */
+    final StateId nextState;
+
+    /**
+     * Event to move from initial to final.
+     */
+    final StateFlowEvent event;
+
+    StateFlow(StateId state, StateId nextState, StateFlowEvent event) {
+        this.state = state;
+        this.nextState = nextState;
+        this.event = event;
     }
 
-    public static GameStateFlowEvent valueOf(int value) {
-        return new GameStateFlowEvent(value);
+    public static StateFlowBuilder on(StateFlowEvent event) {
+        return new StateFlowBuilder(event);
+    }
+
+    boolean isForEvent(StateFlowEvent e) {
+        return this.event.equals(e);
     }
 }
