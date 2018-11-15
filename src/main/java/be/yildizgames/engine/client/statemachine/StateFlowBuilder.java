@@ -24,6 +24,8 @@
 
 package be.yildizgames.engine.client.statemachine;
 
+import be.yildizgames.common.exception.implementation.ImplementationException;
+
 /**
  * @author Grégory Van den Borre
  */
@@ -34,15 +36,19 @@ public class StateFlowBuilder {
     private StateId currentState;
 
     StateFlowBuilder(StateFlowEvent event) {
+        super();
+        ImplementationException.throwForNull(event);
         this.event = event;
     }
 
     public StateFlowBuilder goFrom(StateId state) {
+        ImplementationException.throwForNull(state);
         this.currentState = state;
         return this;
     }
 
     public StateFlow to(StateId nextState) {
+        ImplementationException.throwForNull(nextState);
         return new StateFlow(this.currentState, nextState, this.event);
     }
 }

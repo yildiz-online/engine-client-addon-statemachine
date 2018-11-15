@@ -51,10 +51,20 @@ public class StateFlow {
         this.event = event;
     }
 
+    /**
+     * Build a new flow.
+     * @param event Event to react to.
+     * @return A builder to create the flow.
+     */
     public static StateFlowBuilder on(StateFlowEvent event) {
         return new StateFlowBuilder(event);
     }
 
+    /**
+     * Check if this flow will react to a given event.
+     * @param e Event to check.
+     * @return True if this flow will react to the provided event, false otherwise.
+     */
     boolean isForEvent(StateFlowEvent e) {
         return this.event.equals(e);
     }
