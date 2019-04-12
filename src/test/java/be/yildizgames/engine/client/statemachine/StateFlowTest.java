@@ -30,13 +30,13 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class StateFlowTest {
+public class StateFlowTest {
 
     @Nested
-    class IsForEvent {
+    public class IsForEvent {
 
         @Test
-        void happyFlow() {
+        public void happyFlow() {
             StateFlowBuilder builder = StateFlow.on(StateFlowEvent.valueOf(1));
             builder.goFrom(StateId.valueOf(5));
             StateFlow flow = builder.to(StateId.valueOf(6));
@@ -44,7 +44,7 @@ class StateFlowTest {
         }
 
         @Test
-        void not() {
+        public void not() {
             StateFlowBuilder builder = StateFlow.on(StateFlowEvent.valueOf(2));
             builder.goFrom(StateId.valueOf(5));
             StateFlow flow = builder.to(StateId.valueOf(6));

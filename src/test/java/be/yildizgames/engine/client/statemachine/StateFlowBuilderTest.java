@@ -29,35 +29,35 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-class StateFlowBuilderTest {
+public class StateFlowBuilderTest {
 
     @Nested
-    class Constructor {
+    public class Constructor {
 
         @Test
-        void hapyFlow() {
+        public void hapyFlow() {
             StateFlowBuilder builder = StateFlow.on(StateFlowEvent.valueOf(1));
             Assertions.assertNotNull(builder);
         }
 
         @Test
-        void withNull() {
+        public void withNull() {
             Assertions.assertThrows(ImplementationException.class, () -> StateFlow.on(null));
         }
 
     }
 
     @Nested
-    class goFrom {
+    public class goFrom {
 
         @Test
-        void hapyFlow() {
+        public void hapyFlow() {
             StateFlowBuilder builder = StateFlow.on(StateFlowEvent.valueOf(1));
             builder.goFrom(StateId.valueOf(5));
         }
 
         @Test
-        void withNull() {
+        public void withNull() {
             StateFlowBuilder builder = StateFlow.on(StateFlowEvent.valueOf(1));
             Assertions.assertThrows(ImplementationException.class, () -> builder.goFrom(null));
         }
@@ -65,10 +65,10 @@ class StateFlowBuilderTest {
     }
 
     @Nested
-    class to {
+    public class to {
 
         @Test
-        void hapyFlow() {
+        public void hapyFlow() {
             StateFlowBuilder builder = StateFlow.on(StateFlowEvent.valueOf(1));
             builder.goFrom(StateId.valueOf(5));
             StateFlow flow = builder.to(StateId.valueOf(6));
@@ -78,7 +78,7 @@ class StateFlowBuilderTest {
         }
 
         @Test
-        void withNull() {
+        public void withNull() {
             StateFlowBuilder builder = StateFlow.on(StateFlowEvent.valueOf(1));
             Assertions.assertThrows(ImplementationException.class, () -> builder.to(null));
         }

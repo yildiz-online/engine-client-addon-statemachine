@@ -31,13 +31,13 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class StateManagerTest {
+public class StateManagerTest {
 
     @Nested
-    class Constructor {
+    public class Constructor {
 
         @Test
-        void happyFlow() {
+        public void happyFlow() {
             StateManager<DummyState> manager = StateManager.withInitialState(new DummyState(StateId.valueOf(1)));
             assertEquals(StateId.valueOf(1), manager.getCurrentState().getStateId());
         }
@@ -45,17 +45,17 @@ class StateManagerTest {
     }
 
     @Nested
-    class RegisterState {
+    public class RegisterState {
 
         @Test
-        void heppyFlow() {
+        public void heppyFlow() {
             StateManager<DummyState> manager = StateManager.withInitialState(new DummyState(StateId.valueOf(1)));
             manager.registerGameState(new DummyState(StateId.valueOf(2)));
             assertEquals(StateId.valueOf(1), manager.getCurrentState().getStateId());
         }
 
         @Test
-        void alreadyExists() {
+        public void alreadyExists() {
             StateId value = StateId.valueOf(1);
             StateManager<DummyState> manager = StateManager.withInitialState(new DummyState(value));
             manager.registerGameState(new DummyState(value));
@@ -63,7 +63,7 @@ class StateManagerTest {
         }
 
         @Test
-        void withNull() {
+        public void withNull() {
             StateManager<DummyState> manager = StateManager.withInitialState(new DummyState(StateId.valueOf(1)));
             Assertions.assertThrows(ImplementationException.class,() -> manager.registerGameState(null));
         }
@@ -71,16 +71,16 @@ class StateManagerTest {
     }
 
     @Nested
-    class RegisterStateFlow {
+    public class RegisterStateFlow {
 
         @Test
-        void happyFlow() {
+        public void happyFlow() {
             StateManager<DummyState> manager = StateManager.withInitialState(new DummyState(StateId.valueOf(1)));
             manager.registerGameStateFlow(new StateFlow(StateId.valueOf(1), StateId.valueOf(2), StateFlowEvent.valueOf(1)));
         }
 
         @Test
-        void withNull() {
+        public void withNull() {
             StateManager<DummyState> manager = StateManager.withInitialState(new DummyState(StateId.valueOf(1)));
             Assertions.assertThrows(ImplementationException.class, () -> manager.registerGameStateFlow(null));
         }
@@ -88,14 +88,14 @@ class StateManagerTest {
     }
 
     @Test
-    void processEvent() {
+    public void processEvent() {
     }
 
     @Test
-    void registerGameStateFlow() {
+    public void registerGameStateFlow() {
     }
 
     @Test
-    void getCurrentState() {
+    public void getCurrentState() {
     }
 }
