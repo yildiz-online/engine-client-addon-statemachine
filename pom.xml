@@ -50,5 +50,10 @@
       <artifactId>common-util</artifactId>
       <version>1.0.5</version>
     </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
 </project>
