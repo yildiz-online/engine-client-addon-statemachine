@@ -25,30 +25,21 @@
 
 package be.yildizgames.engine.client.statemachine;
 
-import be.yildizgames.common.util.ValueObject;
-
 /**
  * @author Grégory Van den Borre
  */
-public class StateId extends ValueObject {
+public enum StateIds {
 
-    /**
-     * Empty state id, used as default when no state is currently registered and active.
-     */
-    @Deprecated
-    static final StateId NONE = StateId.valueOf(-1);
+    ANY(StateId.valueOf(0)),
+    TITLE_SCREEN(StateId.valueOf(1)),
+    LOADING_SCREEN(StateId.valueOf(2)),
+    GAME_SCREEN(StateId.valueOf(3)),
+    GAME_CLOSED(StateId.valueOf(4)),
+    GAME_OVER(StateId.valueOf(5));
 
-    @Deprecated
-    public static final StateId CLOSED = StateId.valueOf(-2);
+    public final StateId id;
 
-    @Deprecated
-    public static final StateId ANY = StateId.valueOf(0);
-
-    private StateId(final int value) {
-        super(value);
-    }
-
-    public static StateId valueOf(int value) {
-        return new StateId(value);
+    StateIds(StateId id) {
+        this.id = id;
     }
 }

@@ -41,14 +41,22 @@ public class StateFlowBuilder {
         this.event = event;
     }
 
-    public StateFlowBuilder goFrom(StateId state) {
+    public final StateFlowBuilder goFrom(StateId state) {
         ImplementationException.throwForNull(state);
         this.currentState = state;
         return this;
     }
 
-    public StateFlow to(StateId nextState) {
+    public final StateFlowBuilder goFrom(StateIds state) {
+        return goFrom(state.id);
+    }
+
+    public final StateFlow to(StateId nextState) {
         ImplementationException.throwForNull(nextState);
         return new StateFlow(this.currentState, nextState, this.event);
+    }
+
+    public final StateFlow to(StateIds nextState) {
+        return to(nextState.id);
     }
 }
