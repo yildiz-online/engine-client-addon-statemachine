@@ -66,7 +66,7 @@ public class StateManager<T extends State> {
      * Register a new game state.
      * @param state State to register.
      */
-    public void registerGameState(final T state) {
+    public final void registerGameState(final T state) {
         ImplementationException.throwForNull(state);
         if(!this.states.containsKey(state.getStateId())) {
             this.states.put(state.getStateId(), state);
@@ -87,13 +87,17 @@ public class StateManager<T extends State> {
         this.currentState = state.getStateId();
     }
 
-    public void processEvent(final StateFlowEvent event) {
+    public final void processEvent(final StateFlowEvent event) {
         this.flows.get(this.currentState)
                 .stream()
                 .filter(f -> f.isForEvent(event))
                 .findFirst()
                 .ifPresentOrElse(this::setCurrentStateFromFlow, () -> getFromAny(event));
 
+    }
+
+    public final void processEvent(StateFlowEvents events) {
+        processEvent(events.event);
     }
 
     public final void registerGameStateFlow(final StateFlow flow) {

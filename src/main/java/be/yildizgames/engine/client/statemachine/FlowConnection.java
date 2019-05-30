@@ -25,22 +25,16 @@
 
 package be.yildizgames.engine.client.statemachine;
 
+
 /**
  * @author Grégory Van den Borre
  */
-public enum StateFlowEvents {
+public class FlowConnection {
 
-    CLOSE_GAME(StateFlowEvent.valueOf(-2)),
-
-    AUTHENTICATION_SUCCESSFUL(StateFlowEvent.valueOf(1)),
-
-    AUTHENTICATION_DISCONNECTED(StateFlowEvent.valueOf(2)),
-
-    LOADING_COMPLETED(StateFlowEvent.valueOf(3));
-
-    public final StateFlowEvent event;
-
-    StateFlowEvents(StateFlowEvent event) {
-        this.event = event;
+    public static void register(StateManager manager) {
+        manager.registerGameStateFlow(StateFlow.on(StateFlowEvents.AUTHENTICATION_SUCCESSFUL).goFrom(StateIds.TITLE_SCREEN).to(StateIds.LOADING_SCREEN));
+        manager.registerGameStateFlow(StateFlow.on(StateFlowEvents.AUTHENTICATION_DISCONNECTED).goFrom(StateIds.ANY).to(StateIds.TITLE_SCREEN));
+        manager.registerGameStateFlow(StateFlow.on(StateFlowEvents.LOADING_COMPLETED).goFrom(StateIds.LOADING_SCREEN).to(StateIds.GAME_SCREEN));
+        manager.registerGameStateFlow(StateFlow.on(StateFlowEvents.CLOSE_GAME).goFrom(StateIds.ANY).to(StateIds.GAME_CLOSED));
     }
 }
