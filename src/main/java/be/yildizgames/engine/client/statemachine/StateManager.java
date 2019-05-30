@@ -41,7 +41,7 @@ public class StateManager<T extends State> {
     /**
      * The current activated game state, all other one are deactivated.
      */
-    private StateId currentState = StateId.NONE;
+    private StateId currentState = StateIds.NONE.id;
 
     /**
      * The list of all registered game states.
@@ -79,7 +79,7 @@ public class StateManager<T extends State> {
      * Register the initial game state, it will be activated directly.
      * @param state Initial state to register.
      */
-    private final void registerInitialGameState(final T state) {
+    private void registerInitialGameState(final T state) {
         ImplementationException.throwForNull(state);
         this.states.put(state.getStateId(), state);
         this.flows.put(state.getStateId(), new ArrayList<>());
@@ -98,7 +98,7 @@ public class StateManager<T extends State> {
 
     public final void registerGameStateFlow(final StateFlow flow) {
         ImplementationException.throwForNull(flow);
-        if(!flow.state.equals(StateId.ANY)) {
+        if(!flow.state.equals(StateIds.ANY.id)) {
             this.flows.get(flow.state).add(flow);
         }
     }
@@ -122,7 +122,7 @@ public class StateManager<T extends State> {
     }
 
     private void getFromAny(final StateFlowEvent event) {
-        this.flows.get(StateId.ANY)
+        this.flows.get(StateIds.ANY.id)
                 .stream()
                 .filter(f -> f.isForEvent(event))
                 .findFirst()

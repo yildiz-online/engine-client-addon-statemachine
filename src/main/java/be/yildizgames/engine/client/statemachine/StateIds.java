@@ -30,6 +30,7 @@ package be.yildizgames.engine.client.statemachine;
  */
 public enum StateIds {
 
+    NONE(StateId.valueOf(-1)),
     ANY(StateId.valueOf(0)),
     TITLE_SCREEN(StateId.valueOf(1)),
     LOADING_SCREEN(StateId.valueOf(2)),
