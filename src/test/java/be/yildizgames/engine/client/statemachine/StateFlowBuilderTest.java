@@ -42,7 +42,7 @@ public class StateFlowBuilderTest {
 
         @Test
         public void withNull() {
-            Assertions.assertThrows(ImplementationException.class, () -> StateFlow.on(null));
+            Assertions.assertThrows(ImplementationException.class, () -> StateFlow.on((StateFlowEvent)null));
         }
 
     }
@@ -59,7 +59,7 @@ public class StateFlowBuilderTest {
         @Test
         public void withNull() {
             StateFlowBuilder builder = StateFlow.on(StateFlowEvent.valueOf(1));
-            Assertions.assertThrows(ImplementationException.class, () -> builder.goFrom(null));
+            Assertions.assertThrows(ImplementationException.class, () -> builder.goFrom((StateId)null));
         }
 
     }
@@ -80,7 +80,7 @@ public class StateFlowBuilderTest {
         @Test
         public void withNull() {
             StateFlowBuilder builder = StateFlow.on(StateFlowEvent.valueOf(1));
-            Assertions.assertThrows(ImplementationException.class, () -> builder.to(null));
+            Assertions.assertThrows(ImplementationException.class, () -> builder.to((StateId)null));
         }
 
     }
