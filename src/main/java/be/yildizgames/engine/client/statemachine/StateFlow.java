@@ -60,6 +60,10 @@ public class StateFlow {
         return new StateFlowBuilder(event);
     }
 
+    public static StateFlowBuilder on(StateFlowEvents event) {
+        return new StateFlowBuilder(event.event);
+    }
+
     /**
      * Check if this flow will react to a given event.
      * @param e Event to check.
