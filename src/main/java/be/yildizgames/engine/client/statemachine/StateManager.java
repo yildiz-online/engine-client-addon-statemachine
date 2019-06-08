@@ -25,12 +25,11 @@
 
 package be.yildizgames.engine.client.statemachine;
 
-import be.yildizgames.common.exception.implementation.ImplementationException;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -67,7 +66,7 @@ public class StateManager<T extends State> {
      * @param state State to register.
      */
     public final void registerGameState(final T state) {
-        ImplementationException.throwForNull(state);
+        Objects.requireNonNull(state);
         if(!this.states.containsKey(state.getStateId())) {
             this.states.put(state.getStateId(), state);
             this.flows.put(state.getStateId(), new ArrayList<>());
@@ -80,7 +79,7 @@ public class StateManager<T extends State> {
      * @param state Initial state to register.
      */
     private void registerInitialGameState(final T state) {
-        ImplementationException.throwForNull(state);
+        Objects.requireNonNull(state);
         this.states.put(state.getStateId(), state);
         this.flows.put(state.getStateId(), new ArrayList<>());
         state.activate();
@@ -101,7 +100,7 @@ public class StateManager<T extends State> {
     }
 
     public final void registerGameStateFlow(final StateFlow flow) {
-        ImplementationException.throwForNull(flow);
+        Objects.requireNonNull(flow);
         if(!flow.state.equals(StateIds.ANY.id)) {
             this.flows.get(flow.state).add(flow);
         }

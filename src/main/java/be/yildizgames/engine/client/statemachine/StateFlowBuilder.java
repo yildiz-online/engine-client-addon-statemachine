@@ -24,7 +24,7 @@
 
 package be.yildizgames.engine.client.statemachine;
 
-import be.yildizgames.common.exception.implementation.ImplementationException;
+import java.util.Objects;
 
 /**
  * @author Grégory Van den Borre
@@ -37,12 +37,12 @@ public class StateFlowBuilder {
 
     StateFlowBuilder(StateFlowEvent event) {
         super();
-        ImplementationException.throwForNull(event);
+        Objects.requireNonNull(event);
         this.event = event;
     }
 
     public final StateFlowBuilder goFrom(StateId state) {
-        ImplementationException.throwForNull(state);
+        Objects.requireNonNull(state);
         this.currentState = state;
         return this;
     }
@@ -52,7 +52,7 @@ public class StateFlowBuilder {
     }
 
     public final StateFlow to(StateId nextState) {
-        ImplementationException.throwForNull(nextState);
+        Objects.requireNonNull(nextState);
         return new StateFlow(this.currentState, nextState, this.event);
     }
 

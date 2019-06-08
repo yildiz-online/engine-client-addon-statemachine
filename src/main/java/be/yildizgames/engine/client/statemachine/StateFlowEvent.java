@@ -24,7 +24,7 @@
 
 package be.yildizgames.engine.client.statemachine;
 
-import be.yildizgames.common.util.ValueObject;
+import be.yildizgames.common.model.ValueObject;
 
 /**
  * @author Grégory Van den Borre

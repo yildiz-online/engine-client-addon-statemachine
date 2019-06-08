@@ -24,12 +24,11 @@
  */
 package be.yildizgames.engine.client.statemachine;
 
-import be.yildizgames.common.exception.implementation.ImplementationException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class StateManagerTest {
 
@@ -65,7 +64,7 @@ public class StateManagerTest {
         @Test
         public void withNull() {
             StateManager<DummyState> manager = StateManager.withInitialState(new DummyState(StateId.valueOf(1)));
-            Assertions.assertThrows(ImplementationException.class,() -> manager.registerGameState(null));
+            Assertions.assertThrows(NullPointerException.class,() -> manager.registerGameState(null));
         }
 
     }
@@ -82,7 +81,7 @@ public class StateManagerTest {
         @Test
         public void withNull() {
             StateManager<DummyState> manager = StateManager.withInitialState(new DummyState(StateId.valueOf(1)));
-            Assertions.assertThrows(ImplementationException.class, () -> manager.registerGameStateFlow(null));
+            Assertions.assertThrows(NullPointerException.class, () -> manager.registerGameStateFlow(null));
         }
 
     }

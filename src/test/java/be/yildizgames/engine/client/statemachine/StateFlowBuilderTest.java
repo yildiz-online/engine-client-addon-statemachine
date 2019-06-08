@@ -24,7 +24,6 @@
  */
 package be.yildizgames.engine.client.statemachine;
 
-import be.yildizgames.common.exception.implementation.ImplementationException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -42,7 +41,7 @@ public class StateFlowBuilderTest {
 
         @Test
         public void withNull() {
-            Assertions.assertThrows(ImplementationException.class, () -> StateFlow.on((StateFlowEvent)null));
+            Assertions.assertThrows(NullPointerException.class, () -> StateFlow.on((StateFlowEvent)null));
         }
 
     }
@@ -59,7 +58,7 @@ public class StateFlowBuilderTest {
         @Test
         public void withNull() {
             StateFlowBuilder builder = StateFlow.on(StateFlowEvent.valueOf(1));
-            Assertions.assertThrows(ImplementationException.class, () -> builder.goFrom((StateId)null));
+            Assertions.assertThrows(NullPointerException.class, () -> builder.goFrom((StateId)null));
         }
 
     }
@@ -80,7 +79,7 @@ public class StateFlowBuilderTest {
         @Test
         public void withNull() {
             StateFlowBuilder builder = StateFlow.on(StateFlowEvent.valueOf(1));
-            Assertions.assertThrows(ImplementationException.class, () -> builder.to((StateId)null));
+            Assertions.assertThrows(NullPointerException.class, () -> builder.to((StateId)null));
         }
 
     }
