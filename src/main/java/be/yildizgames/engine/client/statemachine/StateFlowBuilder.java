@@ -47,6 +47,10 @@ public class StateFlowBuilder {
         return this;
     }
 
+    public final StateFlowBuilder goFrom(State state) {
+        return goFrom(state.getStateId());
+    }
+
     public final StateFlowBuilder goFrom(StateIds state) {
         return goFrom(state.id);
     }
@@ -54,6 +58,10 @@ public class StateFlowBuilder {
     public final StateFlow to(StateId nextState) {
         Objects.requireNonNull(nextState);
         return new StateFlow(this.currentState, nextState, this.event);
+    }
+
+    public final StateFlow to(State nextState) {
+        return to(nextState.getStateId());
     }
 
     public final StateFlow to(StateIds nextState) {

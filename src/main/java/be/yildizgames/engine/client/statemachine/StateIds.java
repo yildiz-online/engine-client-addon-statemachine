@@ -36,7 +36,10 @@ public enum StateIds {
     LOADING_SCREEN(StateId.valueOf(2)),
     GAME_SCREEN(StateId.valueOf(3)),
     GAME_CLOSED(StateId.valueOf(4)),
-    GAME_OVER(StateId.valueOf(5));
+    GAME_OVER(StateId.valueOf(5)),
+    CONFIGURATION_SCREEN(StateId.valueOf(6)),
+    EULA_SCREEN(StateId.valueOf(7))
+    ;
 
     public final StateId id;
 

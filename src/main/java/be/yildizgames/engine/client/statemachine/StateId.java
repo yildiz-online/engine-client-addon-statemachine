@@ -32,18 +32,6 @@ import be.yildizgames.common.model.ValueObject;
  */
 public class StateId extends ValueObject {
 
-    /**
-     * Empty state id, used as default when no state is currently registered and active.
-     */
-    @Deprecated
-    static final StateId NONE = StateId.valueOf(-1);
-
-    @Deprecated
-    public static final StateId CLOSED = StateId.valueOf(-2);
-
-    @Deprecated
-    public static final StateId ANY = StateId.valueOf(0);
-
     private StateId(final int value) {
         super(value);
     }

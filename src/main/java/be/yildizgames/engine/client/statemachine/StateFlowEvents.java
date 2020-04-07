@@ -30,13 +30,19 @@ package be.yildizgames.engine.client.statemachine;
  */
 public enum StateFlowEvents {
 
-    CLOSE_GAME(StateFlowEvent.valueOf(-2)),
+    CLOSE_APP(StateFlowEvent.valueOf(-2)),
 
     AUTHENTICATION_SUCCESSFUL(StateFlowEvent.valueOf(1)),
 
     AUTHENTICATION_DISCONNECTED(StateFlowEvent.valueOf(2)),
 
-    LOADING_COMPLETED(StateFlowEvent.valueOf(3));
+    LOADING_COMPLETED(StateFlowEvent.valueOf(3)),
+
+    EULA_ACCEPTED(StateFlowEvent.valueOf(4)),
+
+    OPEN_CONFIGURATION(StateFlowEvent.valueOf(5)),
+
+    CLOSE_CONFIGURATION(StateFlowEvent.valueOf(6));
 
     public final StateFlowEvent event;
 
