@@ -34,7 +34,7 @@ public class FlowConnection {
     public static void register(StateManager manager) {
         manager.registerGameStateFlow(StateFlow.on(StateFlowEvents.AUTHENTICATION_SUCCESSFUL).goFrom(StateIds.TITLE_SCREEN).to(StateIds.LOADING_SCREEN));
         manager.registerGameStateFlow(StateFlow.on(StateFlowEvents.AUTHENTICATION_DISCONNECTED).goFrom(StateIds.ANY).to(StateIds.TITLE_SCREEN));
-        manager.registerGameStateFlow(StateFlow.on(StateFlowEvents.LOADING_COMPLETED).goFrom(StateIds.LOADING_SCREEN).to(StateIds.GAME_SCREEN));
-        manager.registerGameStateFlow(StateFlow.on(StateFlowEvents.CLOSE_APP).goFrom(StateIds.ANY).to(StateIds.GAME_CLOSED));
+        manager.registerGameStateFlow(StateFlow.on(StateFlowEvents.LOADING_COMPLETED).goFrom(StateIds.LOADING_SCREEN).to(StateIds.MAIN_SCREEN));
+        manager.registerGameStateFlow(StateFlow.on(StateFlowEvents.CLOSE_APP).goFrom(StateIds.ANY).to(StateIds.APP_CLOSED));
     }
 }

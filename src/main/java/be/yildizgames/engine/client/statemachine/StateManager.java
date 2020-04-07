@@ -35,7 +35,7 @@ import java.util.Optional;
 /**
  * @author Grégory Van den Borre
  */
-public class StateManager<T extends State> {
+public class StateManager {
 
     /**
      * The current activated game state, all other one are deactivated.
@@ -45,27 +45,27 @@ public class StateManager<T extends State> {
     /**
      * The list of all registered game states.
      */
-    private final Map<StateId, T> states = new HashMap<>();
+    private final Map<StateId, State> states = new HashMap<>();
 
     /**
      * The list of all transitions between game states.
      */
     private final Map<StateId, List<StateFlow>> flows = new HashMap<>();
 
-    private StateManager(T initialState) {
+    private StateManager(State initialState) {
         super();
         this.registerInitialGameState(initialState);
     }
 
-    public static <T extends State> StateManager<T> withInitialState(T initialState) {
-        return new StateManager<>(initialState);
+    public static  StateManager withInitialState(State initialState) {
+        return new StateManager(initialState);
     }
 
     /**
      * Register a new game state.
      * @param state State to register.
      */
-    public final void registerGameState(final T state) {
+    public final void registerGameState(final State state) {
         Objects.requireNonNull(state);
         if(!this.states.containsKey(state.getStateId())) {
             this.states.put(state.getStateId(), state);
@@ -78,7 +78,7 @@ public class StateManager<T extends State> {
      * Register the initial game state, it will be activated directly.
      * @param state Initial state to register.
      */
-    private void registerInitialGameState(final T state) {
+    private void registerInitialGameState(final State state) {
         Objects.requireNonNull(state);
         this.states.put(state.getStateId(), state);
         this.flows.put(state.getStateId(), new ArrayList<>());
@@ -106,7 +106,7 @@ public class StateManager<T extends State> {
         }
     }
 
-    public final T getCurrentState() {
+    public final State getCurrentState() {
         return this.states.get(this.currentState);
     }
 

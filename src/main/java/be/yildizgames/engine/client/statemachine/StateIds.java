@@ -34,8 +34,8 @@ public enum StateIds {
     ANY(StateId.valueOf(0)),
     TITLE_SCREEN(StateId.valueOf(1)),
     LOADING_SCREEN(StateId.valueOf(2)),
-    GAME_SCREEN(StateId.valueOf(3)),
-    GAME_CLOSED(StateId.valueOf(4)),
+    MAIN_SCREEN(StateId.valueOf(3)),
+    APP_CLOSED(StateId.valueOf(4)),
     GAME_OVER(StateId.valueOf(5)),
     CONFIGURATION_SCREEN(StateId.valueOf(6)),
     EULA_SCREEN(StateId.valueOf(7))

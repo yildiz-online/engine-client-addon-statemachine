@@ -37,7 +37,7 @@ public class StateManagerTest {
 
         @Test
         public void happyFlow() {
-            StateManager<DummyState> manager = StateManager.withInitialState(new DummyState(StateId.valueOf(1)));
+            StateManager manager = StateManager.withInitialState(new DummyState(StateId.valueOf(1)));
             assertEquals(StateId.valueOf(1), manager.getCurrentState().getStateId());
         }
 
@@ -48,7 +48,7 @@ public class StateManagerTest {
 
         @Test
         public void heppyFlow() {
-            StateManager<DummyState> manager = StateManager.withInitialState(new DummyState(StateId.valueOf(1)));
+            StateManager manager = StateManager.withInitialState(new DummyState(StateId.valueOf(1)));
             manager.registerGameState(new DummyState(StateId.valueOf(2)));
             assertEquals(StateId.valueOf(1), manager.getCurrentState().getStateId());
         }
@@ -56,14 +56,14 @@ public class StateManagerTest {
         @Test
         public void alreadyExists() {
             StateId value = StateId.valueOf(1);
-            StateManager<DummyState> manager = StateManager.withInitialState(new DummyState(value));
+            StateManager manager = StateManager.withInitialState(new DummyState(value));
             manager.registerGameState(new DummyState(value));
             assertEquals(value, manager.getCurrentState().getStateId());
         }
 
         @Test
         public void withNull() {
-            StateManager<DummyState> manager = StateManager.withInitialState(new DummyState(StateId.valueOf(1)));
+            StateManager manager = StateManager.withInitialState(new DummyState(StateId.valueOf(1)));
             Assertions.assertThrows(NullPointerException.class,() -> manager.registerGameState(null));
         }
 
@@ -74,13 +74,13 @@ public class StateManagerTest {
 
         @Test
         public void happyFlow() {
-            StateManager<DummyState> manager = StateManager.withInitialState(new DummyState(StateId.valueOf(1)));
+            StateManager manager = StateManager.withInitialState(new DummyState(StateId.valueOf(1)));
             manager.registerGameStateFlow(new StateFlow(StateId.valueOf(1), StateId.valueOf(2), StateFlowEvent.valueOf(1)));
         }
 
         @Test
         public void withNull() {
-            StateManager<DummyState> manager = StateManager.withInitialState(new DummyState(StateId.valueOf(1)));
+            StateManager manager = StateManager.withInitialState(new DummyState(StateId.valueOf(1)));
             Assertions.assertThrows(NullPointerException.class, () -> manager.registerGameStateFlow(null));
         }
 
