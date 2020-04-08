@@ -103,7 +103,7 @@ public class StateManager implements StateFlowEventProcessor {
                 .stream()
                 .filter(f -> f.isForEvent(event))
                 .findFirst()
-                .ifPresent(e -> e.function.execute());
+                .ifPresentOrElse(e -> e.function.execute(), () -> getFromAny(event));
     }
 
     @Override
@@ -147,5 +147,10 @@ public class StateManager implements StateFlowEventProcessor {
                 .filter(f -> f.isForEvent(event))
                 .findFirst()
                 .ifPresent(this::setCurrentStateFromFlow);
+        this.executionFlows.get(StateIds.ANY.id)
+                .stream()
+                .filter(f -> f.isForEvent(event))
+                .findFirst()
+                .ifPresent(e -> e.function.execute());
     }
 }
