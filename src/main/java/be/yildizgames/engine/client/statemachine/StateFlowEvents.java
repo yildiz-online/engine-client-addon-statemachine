@@ -42,7 +42,9 @@ public enum StateFlowEvents {
 
     OPEN_CONFIGURATION(StateFlowEvent.valueOf(5)),
 
-    CLOSE_CONFIGURATION(StateFlowEvent.valueOf(6));
+    CLOSE_CONFIGURATION(StateFlowEvent.valueOf(6)),
+
+    OPEN_EULA(StateFlowEvent.valueOf(7));
 
     public final StateFlowEvent event;
 
