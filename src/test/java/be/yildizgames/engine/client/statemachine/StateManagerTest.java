@@ -81,7 +81,7 @@ public class StateManagerTest {
         @Test
         public void withNull() {
             StateManager manager = StateManager.withInitialState(new DummyState(StateId.valueOf(1)));
-            Assertions.assertThrows(NullPointerException.class, () -> manager.registerGameStateFlow(null));
+            Assertions.assertThrows(NullPointerException.class, () -> manager.registerGameStateFlow((StateFlow) null));
         }
 
     }

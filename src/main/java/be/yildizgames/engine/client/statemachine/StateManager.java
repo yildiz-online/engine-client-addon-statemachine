@@ -52,8 +52,11 @@ public class StateManager implements StateFlowEventProcessor {
      */
     private final Map<StateId, List<StateFlow>> flows = new HashMap<>();
 
+    private final Map<StateId, List<StateFlowExecution>> executionFlows = new HashMap<>();
+
     private StateManager(State initialState) {
         super();
+        this.executionFlows.put(StateIds.ANY.id, new ArrayList<>());
         this.registerInitialGameState(initialState);
     }
 
@@ -69,6 +72,7 @@ public class StateManager implements StateFlowEventProcessor {
         Objects.requireNonNull(state);
         if(!this.states.containsKey(state.getStateId())) {
             this.states.put(state.getStateId(), state);
+            this.executionFlows.put(state.getStateId(), new ArrayList<>());
             this.flows.put(state.getStateId(), new ArrayList<>());
             state.deactivate();
         }
@@ -82,6 +86,7 @@ public class StateManager implements StateFlowEventProcessor {
         Objects.requireNonNull(state);
         this.states.put(state.getStateId(), state);
         this.flows.put(state.getStateId(), new ArrayList<>());
+        this.executionFlows.put(state.getStateId(), new ArrayList<>());
         state.activate();
         this.currentState = state.getStateId();
     }
@@ -93,7 +98,11 @@ public class StateManager implements StateFlowEventProcessor {
                 .filter(f -> f.isForEvent(event))
                 .findFirst()
                 .ifPresentOrElse(this::setCurrentStateFromFlow, () -> getFromAny(event));
-
+        this.executionFlows.get(this.currentState)
+                .stream()
+                .filter(f -> f.isForEvent(event))
+                .findFirst()
+                .ifPresent(e -> e.function.execute());
     }
 
     @Override
@@ -106,6 +115,11 @@ public class StateManager implements StateFlowEventProcessor {
         if(!flow.state.equals(StateIds.ANY.id)) {
             this.flows.get(flow.state).add(flow);
         }
+    }
+
+    public final void registerGameStateFlow(final StateFlowExecution flow) {
+        Objects.requireNonNull(flow);
+        this.executionFlows.get(flow.state).add(flow);
     }
 
     public final State getCurrentState() {

@@ -60,6 +60,10 @@ public class StateFlowBuilder {
         return new StateFlow(this.currentState, nextState, this.event);
     }
 
+    public final StateFlowExecution execute(StateFlowExecutionFunction function) {
+        return new StateFlowExecution(this.currentState, this.event, function);
+    }
+
     public final StateFlow to(State nextState) {
         return to(nextState.getStateId());
     }
