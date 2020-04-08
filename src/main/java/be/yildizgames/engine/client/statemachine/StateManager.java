@@ -56,6 +56,7 @@ public class StateManager implements StateFlowEventProcessor {
 
     private StateManager(State initialState) {
         super();
+        this.flows.put(StateIds.ANY.id, new ArrayList<>());
         this.executionFlows.put(StateIds.ANY.id, new ArrayList<>());
         this.registerInitialGameState(initialState);
     }
