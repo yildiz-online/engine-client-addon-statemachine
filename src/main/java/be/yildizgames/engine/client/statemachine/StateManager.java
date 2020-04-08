@@ -35,7 +35,7 @@ import java.util.Optional;
 /**
  * @author Grégory Van den Borre
  */
-public class StateManager {
+public class StateManager implements StateFlowEventProcessor {
 
     /**
      * The current activated game state, all other one are deactivated.
@@ -86,6 +86,7 @@ public class StateManager {
         this.currentState = state.getStateId();
     }
 
+    @Override
     public final void processEvent(final StateFlowEvent event) {
         this.flows.get(this.currentState)
                 .stream()
@@ -95,6 +96,7 @@ public class StateManager {
 
     }
 
+    @Override
     public final void processEvent(StateFlowEvents events) {
         processEvent(events.event);
     }
