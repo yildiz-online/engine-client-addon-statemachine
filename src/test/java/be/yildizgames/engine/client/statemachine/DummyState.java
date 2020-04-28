@@ -32,6 +32,10 @@ public class DummyState implements State {
         this.id = id;
     }
 
+    public DummyState(int id) {
+        this.id = StateId.valueOf(id);
+    }
+
     @Override
     public void activate() {
 
@@ -45,5 +49,12 @@ public class DummyState implements State {
     @Override
     public StateId getStateId() {
         return this.id;
+    }
+
+    @Override
+    public String toString() {
+        return "DummyState{" +
+                "id=" + id +
+                '}';
     }
 }
