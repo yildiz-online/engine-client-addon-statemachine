@@ -32,6 +32,8 @@ public enum StateFlowEvents {
 
     CLOSE_APP(StateFlowEvent.valueOf(-2)),
 
+    START_APP(StateFlowEvent.valueOf(-1)),
+
     AUTHENTICATION_SUCCESSFUL(StateFlowEvent.valueOf(1)),
 
     AUTHENTICATION_DISCONNECTED(StateFlowEvent.valueOf(2)),
