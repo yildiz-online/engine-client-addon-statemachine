@@ -113,9 +113,7 @@ public class StateManager implements StateFlowEventProcessor {
 
     public final void registerGameStateFlow(final StateFlow flow) {
         Objects.requireNonNull(flow);
-        if(!flow.state.equals(StateIds.ANY.id)) {
-            this.flows.get(flow.state).add(flow);
-        }
+        this.flows.get(flow.state).add(flow);
     }
 
     public final void registerGameStateFlow(final StateFlowExecution flow) {
