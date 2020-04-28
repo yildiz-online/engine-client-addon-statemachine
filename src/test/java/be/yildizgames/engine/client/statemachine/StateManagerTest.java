@@ -47,9 +47,9 @@ public class StateManagerTest {
     public class RegisterState {
 
         @Test
-        public void heppyFlow() {
+        public void happyFlow() {
             StateManager manager = StateManager.withInitialState(new DummyState(StateId.valueOf(1)));
-            manager.registerGameState(new DummyState(StateId.valueOf(2)));
+            manager.registerGameState(new DummyState(2));
             assertEquals(StateId.valueOf(1), manager.getCurrentState().getStateId());
         }
 
@@ -86,8 +86,40 @@ public class StateManagerTest {
 
     }
 
-    @Test
-    public void processEvent() {
+    @Nested
+    public class ProcessEvent {
+
+        @Test
+        public void happyFlow() {
+            var state1 = new DummyState(1);
+            var state2 = new DummyState(2);
+            var manager = StateManager.withInitialState(state1);
+            manager.registerGameState(state2);
+            manager.registerGameStateFlow(new StateFlow(state1.getStateId(), state2.getStateId(), StateFlowEvents.LOADING_COMPLETED.event));
+            Assertions.assertEquals(state1, manager.getCurrentState());
+            manager.processEvent(StateFlowEvents.LOADING_COMPLETED);
+            Assertions.assertEquals(state2, manager.getCurrentState());
+        }
+
+        @Test
+        public void any() {
+            var state1 = new DummyState(1);
+            var state2 = new DummyState(2);
+            var state3 = new DummyState(3);
+            var manager = StateManager.withInitialState(state1);
+            manager.registerGameState(state2);
+            manager.registerGameState(state3);
+            manager.registerGameStateFlow(new StateFlow(StateIds.ANY.id, state2.getStateId(), StateFlowEvents.LOADING_COMPLETED.event));
+            manager.registerGameStateFlow(new StateFlow(StateIds.ANY.id, state3.getStateId(), StateFlowEvents.OPEN_CONFIGURATION.event));
+            Assertions.assertEquals(state1, manager.getCurrentState());
+            manager.processEvent(StateFlowEvents.LOADING_COMPLETED);
+            Assertions.assertEquals(state2, manager.getCurrentState());
+            manager.processEvent(StateFlowEvents.OPEN_CONFIGURATION);
+            Assertions.assertEquals(state3, manager.getCurrentState());
+            manager.processEvent(StateFlowEvents.LOADING_COMPLETED);
+            Assertions.assertEquals(state2, manager.getCurrentState());
+        }
+
     }
 
     @Test
