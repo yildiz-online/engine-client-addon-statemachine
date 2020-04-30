@@ -29,7 +29,7 @@
   <url>https://bitbucket.org/yildiz-engine-team/engine-client-addon-statemachine</url>
 
   <artifactId>engine-client-addon-statemachine</artifactId>
-  <version>2.2.2-SNAPSHOT</version>
+  <version>2.2.2</version>
 
   <packaging>jar</packaging>
   <inceptionYear>2018</inceptionYear>
