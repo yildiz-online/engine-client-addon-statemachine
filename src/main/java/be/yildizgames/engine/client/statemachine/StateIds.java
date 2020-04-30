@@ -30,6 +30,7 @@ package be.yildizgames.engine.client.statemachine;
  */
 public enum StateIds {
 
+    START_APP(StateId.valueOf(-2)),
     NONE(StateId.valueOf(-1)),
     ANY(StateId.valueOf(0)),
     TITLE_SCREEN(StateId.valueOf(1)),
