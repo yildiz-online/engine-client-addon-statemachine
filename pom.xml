@@ -29,7 +29,7 @@
   <url>https://github.com/yildiz-online/engine-client-addon-statemachine</url>
 
   <artifactId>engine-client-addon-statemachine</artifactId>
-  <version>3.0.0-SNAPSHOT</version>
+  <version>3.0.0</version>
 
   <packaging>jar</packaging>
   <inceptionYear>2018</inceptionYear>
