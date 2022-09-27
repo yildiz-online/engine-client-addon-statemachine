@@ -26,6 +26,4 @@ module be.yildizgames.engine.client.addon.statemachine {
 
     exports be.yildizgames.engine.client.statemachine;
 
-    requires be.yildizgames.common.model;
-
 }

@@ -25,16 +25,10 @@
 
 package be.yildizgames.engine.client.statemachine;
 
-import be.yildizgames.common.model.ValueObject;
-
 /**
  * @author Grégory Van den Borre
  */
-public class StateId extends ValueObject {
-
-    private StateId(final int value) {
-        super(value);
-    }
+public record StateId(int value) {
 
     public static StateId valueOf(int value) {
         return new StateId(value);

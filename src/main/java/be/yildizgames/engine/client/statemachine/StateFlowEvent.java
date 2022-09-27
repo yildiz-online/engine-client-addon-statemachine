@@ -24,16 +24,10 @@
 
 package be.yildizgames.engine.client.statemachine;
 
-import be.yildizgames.common.model.ValueObject;
-
 /**
  * @author Grégory Van den Borre
  */
-public class StateFlowEvent extends ValueObject {
-
-    private StateFlowEvent(int value) {
-        super(value);
-    }
+public record StateFlowEvent(int value) {
 
     public static StateFlowEvent valueOf(int value) {
         return new StateFlowEvent(value);

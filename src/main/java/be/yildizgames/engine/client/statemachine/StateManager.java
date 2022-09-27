@@ -133,7 +133,7 @@ public class StateManager <T extends State> implements StateFlowEventProcessor {
     private void setCurrentState(final StateId id) {
         Optional.ofNullable(currentState).ifPresent(c -> states.get(this.currentState).deactivate());
         if(!this.states.containsKey(id)) {
-            throw new IllegalArgumentException("No state associated with " + id.value);
+            throw new IllegalArgumentException("No state associated with " + id.value());
         }
         this.states.get(id).activate();
         this.currentState = id;
