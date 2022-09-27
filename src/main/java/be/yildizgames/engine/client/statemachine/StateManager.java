@@ -103,7 +103,7 @@ public class StateManager <T extends State> implements StateFlowEventProcessor {
                 .stream()
                 .filter(f -> f.isForEvent(event))
                 .findFirst()
-                .ifPresentOrElse(e -> e.function.execute(), () -> getFromAny(event));
+                .ifPresentOrElse(e -> e.function.execute(), () -> getFromAnyExecute(event));
     }
 
     @Override
@@ -145,6 +145,9 @@ public class StateManager <T extends State> implements StateFlowEventProcessor {
                 .filter(f -> f.isForEvent(event))
                 .findFirst()
                 .ifPresent(this::setCurrentStateFromFlow);
+    }
+
+    private void getFromAnyExecute(final StateFlowEvent event) {
         this.executionFlows.get(StateIds.ANY.id)
                 .stream()
                 .filter(f -> f.isForEvent(event))
