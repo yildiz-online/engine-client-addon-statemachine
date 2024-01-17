@@ -79,6 +79,11 @@ public class StateManager <T extends State> implements StateFlowEventProcessor {
         }
     }
 
+    public final T getState(final StateId id) {
+        Objects.requireNonNull(id);
+        return this.states.get(id);
+    }
+
     /**
      * Register the initial game state, it will be activated directly.
      * @param state Initial state to register.
