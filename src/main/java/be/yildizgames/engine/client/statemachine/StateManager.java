@@ -47,6 +47,8 @@ public class StateManager <T extends State> implements StateFlowEventProcessor {
      */
     private final Map<StateId, T> states = new HashMap<>();
 
+    private final Map<StateId, StateBuilder<T>> stateToBuild = new HashMap<>();
+
     /**
      * The list of all transitions between game states.
      */
@@ -73,9 +75,20 @@ public class StateManager <T extends State> implements StateFlowEventProcessor {
         Objects.requireNonNull(state);
         if(!this.states.containsKey(state.getStateId())) {
             this.states.put(state.getStateId(), state);
+            state.deactivate();
+        }
+        if(!this.flows.containsKey(state.getStateId())) {
             this.executionFlows.put(state.getStateId(), new ArrayList<>());
             this.flows.put(state.getStateId(), new ArrayList<>());
-            state.deactivate();
+        }
+    }
+
+    public final void registerGameState(final StateId id, final StateBuilder<T> builder) {
+        Objects.requireNonNull(builder);
+        if(!this.states.containsKey(id) && !this.stateToBuild.containsKey(id)) {
+            this.stateToBuild.put(id, builder);
+            this.executionFlows.put(id, new ArrayList<>());
+            this.flows.put(id, new ArrayList<>());
         }
     }
 
@@ -138,7 +151,11 @@ public class StateManager <T extends State> implements StateFlowEventProcessor {
     private void setCurrentState(final StateId id) {
         Optional.ofNullable(currentState).ifPresent(c -> states.get(this.currentState).deactivate());
         if(!this.states.containsKey(id)) {
-            throw new IllegalArgumentException("No state associated with " + id.value());
+            if(this.stateToBuild.containsKey(id)) {
+                this.registerGameState(this.stateToBuild.remove(id).build());
+            } else {
+                throw new IllegalArgumentException("No state associated with " + id.value());
+            }
         }
         this.states.get(id).activate();
         this.currentState = id;
@@ -158,5 +175,9 @@ public class StateManager <T extends State> implements StateFlowEventProcessor {
                 .filter(f -> f.isForEvent(event))
                 .findFirst()
                 .ifPresent(e -> e.function.execute());
+    }
+
+    public interface StateBuilder<T extends State> {
+        T build();
     }
 }
